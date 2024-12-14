@@ -1,5 +1,9 @@
-{% extends "base.html" %}
-{% block content %}
-<h1>Bienvenue dans FortunaISK</h1>
-<p>Contenu principal de la loterie.</p>
-{% endblock %}
+{% extends "fortunaisk/base.html" %}
+
+{% block fortuna_content %}
+<div class="text-center">
+    <h2>{% translate "Welcome to the FortunaISK Lottery!" %}</h2>
+    <p>{% translate "Current Jackpot:" %} <strong>1,000,000 ISK</strong></p>
+    <p>{% translate "Buy your ticket now and stand a chance to win!" %}</p>
+</div>
+{% endblock fortuna_content %}
