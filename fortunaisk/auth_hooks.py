@@ -16,8 +16,7 @@ class FortunaISKMenuItem(MenuItemHook):
 
     def __init__(self):
         # Set up menu entry for sidebar
-        MenuItemHook.__init__(
-            self,
+        super().__init__(
             _("FortunaISK"),  # Display name
             "fas fa-ticket-alt fa-fw",  # Font Awesome icon
             "fortunaisk:main_view",  # URL name
@@ -29,20 +28,17 @@ class FortunaISKMenuItem(MenuItemHook):
 
         # Check if the user has the necessary permissions
         if request.user.has_perm("fortunaisk.view_raffle"):
-            return MenuItemHook.render(self, request)
-
+            return super().render(request)
         return ""  # Return empty if the user lacks permissions
 
 
 @hooks.register("menu_item_hook")
 def register_menu():
     """Register the menu item for FortunaISK"""
-
     return FortunaISKMenuItem()
 
 
 @hooks.register("url_hook")
 def register_urls():
     """Register app URLs"""
-
     return UrlHook(urls, "fortunaisk", r"^fortunaisk/")
