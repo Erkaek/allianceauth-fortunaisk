@@ -1,6 +1,8 @@
 from allianceauth.services.hooks import MenuItemHook, UrlHook
+from allianceauth import hooks
 from django.utils.translation import gettext_lazy as _
 from . import urls
+
 
 class FortunaISKMenu(MenuItemHook):
     """
@@ -20,10 +22,18 @@ class FortunaISKMenu(MenuItemHook):
             return super().render(request)
         return ""
 
-# Enregistrez le menu
-MenuItemHook.register(FortunaISKMenu)
 
-# Enregistrez les URL
+@hooks.register("menu_item_hook")
+def register_menu():
+    """
+    Enregistre le menu pour le module FortunaISK.
+    """
+    return FortunaISKMenu()
+
+
 @hooks.register("url_hook")
 def register_urls():
+    """
+    Enregistre les URL pour le module FortunaISK.
+    """
     return UrlHook(urls, "fortunaisk", r"^fortunaisk/")
