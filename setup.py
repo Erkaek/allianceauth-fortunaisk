@@ -1,28 +1,17 @@
 from setuptools import setup, find_packages
 
-VERSION = "0.1.0"
-PROJECT_NAME = "allianceauth-fortunaisk"
-AUTHOR = "Erka Ekanon"
-AUTHOR_EMAIL = "erkaekanon@outlook.com"
-DESCRIPTION = "FortunaISK - A monthly raffle plugin for Alliance Auth"
-LICENSE = "MIT"
-URL = "https://github.com/Erkaek/allianceauth-fortunaisk"
-
-with open("README.md", "r", encoding="utf-8") as f:
-    long_description = f.read()
-
 setup(
-    name=PROJECT_NAME,
-    version=VERSION,
+    name="fortunaisk",  # Assurez-vous que le nom est bien "fortunaisk"
+    version="0.1.0",
     packages=find_packages(),
     include_package_data=True,
-    license=LICENSE,
-    description=DESCRIPTION,
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    author=AUTHOR,
-    author_email=AUTHOR_EMAIL,
-    url=URL,
+    license="MIT",
+    description="FortunaISK - A monthly raffle plugin for Alliance Auth",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    author="Erka Ekanon",
+    author_email="erkaekanon@outlook.com",
+    url="https://github.com/Erkaek/allianceauth-fortunaisk",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Framework :: Django",
@@ -33,7 +22,7 @@ setup(
     install_requires=[
         "django>=3.2",
         "allianceauth>=2.9",
-        "allianceauth-corp-tools>=1.0.0",
+        "allianceauth-corptools>=2.8.2",
     ],
     python_requires=">=3.8",
 )
