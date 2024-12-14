@@ -22,16 +22,12 @@ class RaffleTicket(models.Model):
     price_isk = models.BigIntegerField(default=0)  # Montant ISK payé pour le ticket
     payment_reference = models.CharField(max_length=100, unique=True)
 
-    def __str__(self):
-        return f"Ticket #{self.pk} - {self.user.username} - {self.character.character_name} - {self.price_isk} ISK"
+    class Meta:
+        permissions = [
+            ("view_raffle", "Can view the raffle module"),
+            ("buy_ticket", "Can buy a ticket"),
+        ]
 
-    @property
-    def is_valid(self):
-        """
-        Vérifie si le ticket est valide (par exemple, vérification de la date ou du paiement).
-        """
-        one_month_ago = timezone.now() - timezone.timedelta(days=30)
-        return self.purchase_date >= one_month_ago
 
 
 class RaffleWinner(models.Model):

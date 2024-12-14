@@ -1,14 +1,23 @@
+import logging
 from django.urls import path
 from allianceauth.services.hooks import MenuItemHook
 from django.utils.translation import gettext_lazy as _
 from . import views
 
-# Ajouter une entrée au menu principal d'Alliance Auth
+# Configuration du logger
+logger = logging.getLogger(__name__)
+
 class RaffleMenu(MenuItemHook):
     def __init__(self):
-        super().__init__(_('Raffle'), 'fortunaisk:main_view', navactive=['fortunaisk'])
+        logger.debug("[DEBUG] Enregistrement du hook RaffleMenu.")
+        super().__init__(
+            _('Raffle'),
+            'fortunaisk:main_view',
+            navactive=['fortunaisk']
+        )
 
     def permissions(self, user):
+        logger.debug(f"[DEBUG] Vérification des permissions pour : {user.username}")
         return user.has_perm('fortunaisk.view_raffle')
 
 MenuItemHook.register(RaffleMenu)
