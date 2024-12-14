@@ -1,34 +1,16 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% block title %}FortunaISK - Loterie{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>FortunaISK - Tirage Mensuel</h2>
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Pot Total en Cours</h4>
-            <p><strong>{{ total_pot }} ISK</strong></p>
+<h1>Bienvenue dans la Loterie FortunaISK</h1>
+<p>Pot total : {{ total_pot }} ISK</p>
+<p>Valeur d'un ticket : {{ ticket_value }} ISK</p>
+<p>Tickets vendus : {{ total_tickets }}</p>
 
-            <h4>Comment Participer</h4>
-            <p>Votre participation se fait automatiquement en effectuant un paiement via le module de facturation. Assurez-vous que votre paiement utilise la référence au format <code>FORTUNAISK-username-charactername-YYYYMM</code> pour valider votre ticket.</p>
-            
-            {% if has_active_participation %}
-                <div class="alert alert-success" role="alert">
-                    Vous avez déjà une participation active pour ce tirage avec un de vos personnages.
-                </div>
-            {% else %}
-                <div class="alert alert-warning" role="alert">
-                    Vous n'avez pas encore de participation active pour ce tirage. Effectuez un paiement avec la référence correcte pour participer.
-                </div>
-            {% endif %}
-        </div>
-        <div class="col-md-6">
-            <h4>Informations sur le Tirage</h4>
-            <p><strong>Valeur d'un Ticket :</strong> {{ ticket_value }} ISK</p>
-            <p><strong>Nombre de Tickets Total :</strong> {{ total_tickets }}</p>
-        </div>
-    </div>
-</div>
+{% if has_active_participation %}
+    <p>Vous avez déjà participé à la loterie ce mois-ci.</p>
+{% else %}
+    <p>Vous n'avez pas encore participé à la loterie ce mois-ci. Consultez les instructions pour participer.</p>
+{% endif %}
 {% endblock %}

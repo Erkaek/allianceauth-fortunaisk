@@ -30,7 +30,6 @@ class RaffleTicket(models.Model):
         """
         Vérifie si le ticket est valide (par exemple, vérification de la date ou du paiement).
         """
-        # Exemple de validation : Si la date d'achat dépasse un mois, invalider
         one_month_ago = timezone.now() - timezone.timedelta(days=30)
         return self.purchase_date >= one_month_ago
 

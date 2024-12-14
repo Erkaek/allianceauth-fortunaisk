@@ -1,34 +1,19 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% block title %}Historique des Gagnants{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Historique des Gagnants</h2>
-    <hr>
-    {% if winners %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Date du Tirage</th>
-                    <th>Utilisateur</th>
-                    <th>Personnage Principal</th>
-                    <th>Montant Gagné (ISK)</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for winner in winners %}
-                    <tr>
-                        <td>{{ winner.draw_date|date:"d/m/Y H:i" }}</td>
-                        <td>{{ winner.user.username }}</td>
-                        <td>{{ winner.main_character }}</td>
-                        <td>{{ winner.total_pot }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Aucun tirage effectué jusqu'à présent.</p>
-    {% endif %}
-</div>
+<h1>Historique des Gagnants</h1>
+
+{% if winners %}
+    <ul>
+        {% for winner in winners %}
+            <li>
+                {{ winner.draw_date }} : {{ winner.main_character }} - {{ winner.total_pot }} ISK
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun gagnant pour l'instant.</p>
+{% endif %}
 {% endblock %}
