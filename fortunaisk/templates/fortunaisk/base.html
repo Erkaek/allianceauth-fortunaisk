@@ -1,5 +1,4 @@
 {% extends "allianceauth/base.html" %}
-{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +7,14 @@
     <title>{% block title %}FortunaISK{% endblock %}</title>
 </head>
 <body>
-    {% block content %}
     <header>
-        <h1>FortunaISK - Alliance Auth</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'fortunaisk:main_view' %}">{% trans "Home" %}</a></li>
+                <li><a href="{% url 'fortunaisk:history_view' %}">{% trans "Winners History" %}</a></li>
+            </ul>
+        </nav>
+        <h1>{% block title %}FortunaISK - Alliance Auth{% endblock %}</h1>
     </header>
     <main>
         {% block fortuna_content %}{% endblock %}
@@ -18,6 +22,5 @@
     <footer>
         <p>&copy; 2024 Alliance Auth</p>
     </footer>
-    {% endblock content %}
 </body>
 </html>
