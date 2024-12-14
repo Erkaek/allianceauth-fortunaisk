@@ -5,24 +5,22 @@ from . import views
 
 app_name = 'fortunaisk'
 
-# Hook pour ajouter le module au menu principal d'Alliance Auth
+# Hook pour le menu principal d'Alliance Auth
 class RaffleMenu(MenuItemHook):
     def __init__(self):
         super().__init__(
             _('FortunaISK'),  # Nom affiché dans le menu
-            'fortunaisk:main_view',  # Nom de la vue principale
-            navactive=['fortunaisk']  # Active l'entrée pour toutes les pages du module
+            'fortunaisk:main_view',  # Vue principale du module
+            navactive=['fortunaisk']  # Activer l'entrée de menu pour toutes les vues du module
         )
 
     def permissions(self, user):
-        # Définir la permission requise pour afficher le module
-        return user.has_perm('fortunaisk.view_raffle')
+        return user.has_perm('fortunaisk.view_raffle')  # Permission requise
 
-# Enregistrement du Hook
 MenuItemHook.register(RaffleMenu)
 
-# Définition des URLs du module
+# Routes internes du module
 urlpatterns = [
     path('', views.main_view, name='main_view'),  # Vue principale
-    path('history/', views.history_view, name='history_view'),  # Vue historique des gagnants
+    path('history/', views.history_view, name='history_view'),  # Historique des gagnants
 ]
