@@ -12,6 +12,11 @@ def main_view(request):
 @login_required
 def history_view(request):
     """
-    History view for past raffle winners.
+    View to display the history of lottery winners.
     """
-    return render(request, 'fortunaisk/history.html')
+    # Données statiques pour tester le rendu
+    winners = [
+        {"date": "2024-12-01", "winner": "John Doe", "jackpot": "10,000,000 ISK"},
+        {"date": "2024-11-01", "winner": "Jane Smith", "jackpot": "8,000,000 ISK"},
+    ]
+    return render(request, 'fortunaisk/history.html', {'winners': winners})
