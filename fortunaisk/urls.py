@@ -4,5 +4,5 @@ from . import views
 app_name = 'fortunaisk'
 
 urlpatterns = [
-    path('buy-tickets/', views.buy_tickets, name='buy_tickets'),
+    path('', views.buy_tickets, name='buy_tickets'),  # Point de départ : /fortunaisk/
 ]
