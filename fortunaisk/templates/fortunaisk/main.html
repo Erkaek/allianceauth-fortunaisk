@@ -4,7 +4,12 @@
 {% block fortuna_content %}
 <div class="text-center">
     <h2>{% trans "Welcome to FortunaISK Lottery!" %}</h2>
-    <p>{% trans "Current Jackpot:" %} <strong>10,000,000 ISK</strong></p>
-    <p>{% trans "Participate now and stand a chance to win big!" %}</p>
+    <p>{% trans "Current Jackpot:" %} <strong>{{ jackpot|intcomma }} ISK</strong></p>
+
+    {% if user_participation %}
+        <p>{% trans "You are already participating in this month's lottery!" %}</p>
+    {% else %}
+        <p>{% trans "Buy a ticket to participate in the lottery!" %}</p>
+    {% endif %}
 </div>
 {% endblock fortuna_content %}
