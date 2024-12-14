@@ -1,17 +1,19 @@
 {% extends "fortunaisk/base.html" %}
-
+{% load i18n %}
+<!-- FortunaISK Winners History -->
 {% block fortuna_content %}
 <div class="text-center">
-    <h2>{% translate "Lottery Winners" %}</h2>
+    <h2>{% trans "Lottery Winners" %}</h2>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>{% translate "Date" %}</th>
-                <th>{% translate "Winner" %}</th>
-                <th>{% translate "Jackpot" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Winner" %}</th>
+                <th>{% trans "Jackpot" %}</th>
             </tr>
         </thead>
         <tbody>
+            <!-- Exemple de contenu statique -->
             <tr>
                 <td>2024-12-01</td>
                 <td>John Doe</td>
