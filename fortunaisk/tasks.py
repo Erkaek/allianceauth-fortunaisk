@@ -4,7 +4,7 @@ from .models import RaffleTicket, RaffleWinner
 from django.conf import settings
 import logging
 from celery import shared_task
-from allianceauth_invoices.models import Invoice
+from allianceauth_corp_tools.models import CorpToolsModel  # Exemple d'import, ajustez selon les besoins
 from allianceauth.characters.models import Character
 
 logger = logging.getLogger(__name__)
@@ -12,33 +12,33 @@ logger = logging.getLogger(__name__)
 @shared_task
 def validate_fortunaisk_payments():
     """
-    Vérifie les paiements pour FortunaISK en utilisant allianceauth-invoices.
+    Vérifie les paiements pour FortunaISK en utilisant allianceauth-corp-tools.
     Crée des tickets pour les paiements valides qui n'ont pas encore été traités.
     """
-    # Filtrer les invoices correspondant à FortunaISK qui sont payées et valides
-    invoices = Invoice.objects.filter(
+    # Filtrer les paiements correspondant à FortunaISK via allianceauth-corp-tools
+    payments = CorpToolsModel.objects.filter(
         reference__startswith=settings.INVOICE_REF_FORTUNAISK,  # Référence unique pour FortunaISK
         is_paid=True,
         is_valid=True
     )
 
-    for invoice in invoices:
+    for payment in payments:
         # Vérifiez si un ticket a déjà été créé pour cette référence
-        if not RaffleTicket.objects.filter(payment_reference=invoice.reference).exists():
+        if not RaffleTicket.objects.filter(payment_reference=payment.reference).exists():
             try:
                 # Extraire le nom de l'utilisateur et du personnage de la référence
                 # Format de référence : FORTUNAISK-username-charactername-YYYYMM
-                parts = invoice.reference.split('-')
+                parts = payment.reference.split('-')
                 if len(parts) < 4:
-                    logger.error(f"Référence de paiement invalide : {invoice.reference}")
+                    logger.error(f"Référence de paiement invalide : {payment.reference}")
                     continue
                 prefix, username, *character_parts, ym = parts
                 character_name = '-'.join(character_parts)
                 if prefix != settings.INVOICE_REF_FORTUNAISK:
-                    logger.error(f"Préfixe de référence incorrect : {invoice.reference}")
+                    logger.error(f"Préfixe de référence incorrect : {payment.reference}")
                     continue
 
-                user = invoice.user  # Supposant que Invoice a un ForeignKey vers User
+                user = payment.user  # Supposant que CorpToolsModel a un ForeignKey vers User
                 character = Character.objects.get(name=character_name, owner=user)
 
                 # Créer un ticket
@@ -46,13 +46,13 @@ def validate_fortunaisk_payments():
                     character=character,
                     user=user,
                     price_isk=settings.FORTUNAISK_TICKET_VALUE,
-                    payment_reference=invoice.reference
+                    payment_reference=payment.reference
                 )
-                logger.info(f"Ticket créé pour l'utilisateur {user.username} avec le personnage {character.name} et la référence {invoice.reference}")
+                logger.info(f"Ticket créé pour l'utilisateur {user.username} avec le personnage {character.name} et la référence {payment.reference}")
             except Character.DoesNotExist:
                 logger.error(f"Personnage {character_name} pour l'utilisateur {username} non trouvé.")
             except Exception as e:
-                logger.error(f"Erreur lors de la création du ticket pour la référence {invoice.reference} : {str(e)}")
+                logger.error(f"Erreur lors de la création du ticket pour la référence {payment.reference} : {str(e)}")
 
 @shared_task
 def run_monthly_raffle():
