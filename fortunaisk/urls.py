@@ -1,15 +1,13 @@
+from django.urls import path
 from allianceauth.services.hooks import MenuItemHook
 from django.utils.translation import gettext_lazy as _
-from django.urls import path
 from . import views
-import logging
 
 app_name = 'fortunaisk'
 
-# Hook pour ajouter l'entrée dans le menu principal
+# Hook pour ajouter une entrée au menu principal
 class RaffleMenu(MenuItemHook):
     def __init__(self):
-        logger.debug("[DEBUG] Hook RaffleMenu chargé pour FortunaISK.")
         super().__init__(
             _('FortunaISK'),
             'fortunaisk:main_view',
@@ -17,7 +15,7 @@ class RaffleMenu(MenuItemHook):
         )
 
     def permissions(self, user):
-        return user.has_perm('fortunaisk.view_raffle')  # Vérifiez les permissions
+        return user.has_perm('fortunaisk.view_raffle')
 
 MenuItemHook.register(RaffleMenu)
 

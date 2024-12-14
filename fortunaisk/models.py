@@ -4,16 +4,13 @@ from django.utils import timezone
 
 class RaffleTicket(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='raffle_tickets'
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='raffle_tickets'
     )
     price_isk = models.BigIntegerField(default=0)
     payment_reference = models.CharField(max_length=100, unique=True)
     purchase_date = models.DateTimeField(default=timezone.now)
-
-    @property
-    def character(self):
-        # Vous pouvez ajuster cette méthode selon vos besoins pour accéder au personnage principal
-        return self.user.profile.main_character.character_name if hasattr(self.user, 'profile') else "N/A"
 
     def __str__(self):
         return f"Ticket #{self.id} - {self.user.username} - {self.price_isk} ISK"
@@ -21,14 +18,13 @@ class RaffleTicket(models.Model):
 
 class RaffleWinner(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
     )
     total_pot = models.BigIntegerField(default=0)
     draw_date = models.DateTimeField(default=timezone.now)
-
-    @property
-    def main_character(self):
-        return self.user.profile.main_character.character_name if self.user and hasattr(self.user, 'profile') else "N/A"
 
     def __str__(self):
         return f"Gagnant du {self.draw_date.strftime('%Y-%m-%d')} - {self.user.username if self.user else 'Inconnu'}"
