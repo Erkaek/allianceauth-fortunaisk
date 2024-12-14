@@ -10,10 +10,10 @@ class RaffleTicket(models.Model):
     payment_reference = models.CharField(max_length=100, unique=True)
     purchase_date = models.DateTimeField(default=timezone.now)
 
-    class Meta:
-        permissions = [
-            ("view_raffle", "Can view the raffle module"),
-        ]
+    @property
+    def character(self):
+        # Remplacez par la logique correcte si nécessaire
+        return self.user.profile.main_character.character_name
 
     def __str__(self):
         return f"Ticket #{self.id} - {self.user.username} - {self.price_isk} ISK"
@@ -26,5 +26,11 @@ class RaffleWinner(models.Model):
     total_pot = models.BigIntegerField(default=0)
     draw_date = models.DateTimeField(default=timezone.now)
 
+    @property
+    def main_character(self):
+        # Remplacez par la logique correcte
+        return self.user.profile.main_character.character_name if self.user else "N/A"
+
     def __str__(self):
         return f"Gagnant du {self.draw_date.strftime('%Y-%m-%d')} - {self.user.username if self.user else 'Inconnu'}"
+
