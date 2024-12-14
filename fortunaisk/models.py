@@ -12,8 +12,8 @@ class RaffleTicket(models.Model):
 
     @property
     def character(self):
-        # Remplacez par la logique correcte si nécessaire
-        return self.user.profile.main_character.character_name
+        # Vous pouvez ajuster cette méthode selon vos besoins pour accéder au personnage principal
+        return self.user.profile.main_character.character_name if hasattr(self.user, 'profile') else "N/A"
 
     def __str__(self):
         return f"Ticket #{self.id} - {self.user.username} - {self.price_isk} ISK"
@@ -28,9 +28,7 @@ class RaffleWinner(models.Model):
 
     @property
     def main_character(self):
-        # Remplacez par la logique correcte
-        return self.user.profile.main_character.character_name if self.user else "N/A"
+        return self.user.profile.main_character.character_name if self.user and hasattr(self.user, 'profile') else "N/A"
 
     def __str__(self):
         return f"Gagnant du {self.draw_date.strftime('%Y-%m-%d')} - {self.user.username if self.user else 'Inconnu'}"
-
