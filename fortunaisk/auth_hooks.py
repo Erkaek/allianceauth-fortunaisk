@@ -1,15 +1,36 @@
-from allianceauth.hooks import DashboardHook
+from allianceauth.services.hooks import MenuItemHook, UrlHook
+from allianceauth.hooks import DashboardItemHook
+from allianceauth import hooks
+from django.utils.translation import gettext_lazy as _
+from . import urls
 
-class FortunaISKDashboard(DashboardHook):
-    """
-    Widget pour le tableau de bord d'Alliance Auth.
-    """
+
+class FortunaISKMenu(MenuItemHook):
+    def __init__(self):
+        super().__init__(
+            _("FortunaISK"),
+            "fas fa-ticket-alt",
+            "fortunaisk:main_view",
+            navactive=["fortunaisk:"]
+        )
+
     def render(self, request):
-        # Assurez-vous que seuls les utilisateurs autorisés voient ce widget
+        if request.user.has_perm("fortunaisk.view_raffle"):
+            return super().render(request)
+        return ""
+
+
+class FortunaISKDashboardWidget(DashboardItemHook):
+    """Widget pour le tableau de bord."""
+
+    def __init__(self):
+        super().__init__(_("FortunaISK Lottery"), "fortunaisk:main_view")
+
+    def render(self, request):
         if request.user.has_perm("fortunaisk.view_raffle"):
             return """
             <div class="panel panel-default">
-                <div class="panel-heading">FortunaISK Lottery</div>
+                <div class="panel-heading">FortunaISK</div>
                 <div class="panel-body">
                     <p>Participate in this month's lottery and win big!</p>
                     <a href="/fortunaisk/" class="btn btn-primary">Go to FortunaISK</a>
@@ -18,5 +39,17 @@ class FortunaISKDashboard(DashboardHook):
             """
         return ""
 
-# Enregistrez le hook
-DashboardHook.register(FortunaISKDashboard)
+
+@hooks.register("menu_item_hook")
+def register_menu():
+    return FortunaISKMenu()
+
+
+@hooks.register("url_hook")
+def register_urls():
+    return UrlHook(urls, "fortunaisk", r"^fortunaisk/")
+
+
+@hooks.register("dashboard_hook")
+def register_dashboard():
+    return FortunaISKDashboardWidget()
