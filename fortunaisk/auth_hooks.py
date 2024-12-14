@@ -1,55 +1,21 @@
-from allianceauth.services.hooks import MenuItemHook, UrlHook
-from allianceauth.hooks import DashboardItemHook
-from allianceauth import hooks
+# fortunaisk/auth_hooks.py
 from django.utils.translation import gettext_lazy as _
-from . import urls
+from allianceauth.services.hooks import get_extension_logger
 
+logger = get_extension_logger(__name__)
 
-class FortunaISKMenu(MenuItemHook):
-    def __init__(self):
-        super().__init__(
-            _("FortunaISK"),
-            "fas fa-ticket-alt",
-            "fortunaisk:main_view",
-            navactive=["fortunaisk:"]
-        )
+__version__ = '0.1.0'
+__title__ = 'FortunaISK'
 
-    def render(self, request):
-        if request.user.has_perm("fortunaisk.view_raffle"):
-            return super().render(request)
-        return ""
+def provides_app_settings():
+    return {
+        'name': __title__,
+        'version': __version__,
+        'description': _('A plugin to view and manage ISK fortunes within AllianceAuth'),
+        'author': 'Votre Nom',
+    }
 
-
-class FortunaISKDashboardWidget(DashboardItemHook):
-    """Widget pour le tableau de bord."""
-
-    def __init__(self):
-        super().__init__(_("FortunaISK Lottery"), "fortunaisk:main_view")
-
-    def render(self, request):
-        if request.user.has_perm("fortunaisk.view_raffle"):
-            return """
-            <div class="panel panel-default">
-                <div class="panel-heading">FortunaISK</div>
-                <div class="panel-body">
-                    <p>Participate in this month's lottery and win big!</p>
-                    <a href="/fortunaisk/" class="btn btn-primary">Go to FortunaISK</a>
-                </div>
-            </div>
-            """
-        return ""
-
-
-@hooks.register("menu_item_hook")
-def register_menu():
-    return FortunaISKMenu()
-
-
-@hooks.register("url_hook")
-def register_urls():
-    return UrlHook(urls, "fortunaisk", r"^fortunaisk/")
-
-
-@hooks.register("dashboard_hook")
-def register_dashboard():
-    return FortunaISKDashboardWidget()
+def load():
+    logger.info('Loading the FortunaISK plugin...')
+    # Ici vous pourriez ajouter de la logique d'initialisation,
+    # comme des signaux, du code de setup, etc.

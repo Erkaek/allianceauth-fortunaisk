@@ -1,8 +1,10 @@
-from django.urls import path
-from . import views
+# fortunaisk/urls.py
+from django.urls import path, include
+from .views import index
 
 app_name = 'fortunaisk'
 
 urlpatterns = [
-    path('', views.buy_tickets, name='buy_tickets'),  # Point de départ : /fortunaisk/
+    path('', index, name='index'),
+    path('fortunaisk/', include('fortunaisk.urls', namespace='fortunaisk')),
 ]

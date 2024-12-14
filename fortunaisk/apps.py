@@ -1,5 +1,6 @@
+# fortunaisk/apps.py
 from django.apps import AppConfig
 
-class FortunaiskConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+class FortunaISKConfig(AppConfig):
     name = 'fortunaisk'
+    verbose_name = "Fortuna ISK"
