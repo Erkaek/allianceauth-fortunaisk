@@ -1,6 +1,7 @@
 # fortunaisk/auth_hooks.py
 from django.utils.translation import gettext_lazy as _
-from allianceauth.services.hooks import get_extension_logger
+from allianceauth.services.hooks import get_extension_logger, add_menu_item, MenuItemHook
+from django.urls import reverse
 
 logger = get_extension_logger(__name__)
 
@@ -17,5 +18,13 @@ def provides_app_settings():
 
 def load():
     logger.info('Loading the FortunaISK plugin...')
-    # Ici vous pourriez ajouter de la logique d'initialisation,
-    # comme des signaux, du code de setup, etc.
+    # Ajout d'un lien dans le menu du dashboard
+    # Utilisez `reverse` pour pointer vers la vue `index` de votre plugin
+    add_menu_item(
+        MenuItemHook(
+            name=_('FortunaISK'),
+            url=reverse('fortunaisk:index'),  # Vérifiez que le namespace 'fortunaisk' est correct
+            icon='fas fa-coins',  # Une icône FontAwesome de votre choix
+            order=100  # Position dans le menu, plus petit = plus haut
+        )
+    )
