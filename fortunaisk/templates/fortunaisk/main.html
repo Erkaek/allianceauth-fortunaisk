@@ -1,9 +1,47 @@
 {% extends "fortunaisk/base.html" %}
+{% load i18n %}
+<!-- FortunaISK Main Page -->
+{% block ct_block %}
+    <br />
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button"
+                        class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
+                    <span class="sr-only">{% trans "Toggle navigation" %}</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'fortunaisk:main_view' %}">{% trans "FortunaISK Lottery" %}</a>
+            </div>
 
-{% block fortuna_content %}
-<div class="text-center">
-    <h2>{% translate "Welcome to the FortunaISK Lottery!" %}</h2>
-    <p>{% translate "Current Jackpot:" %} <strong>1,000,000 ISK</strong></p>
-    <p>{% translate "Buy your ticket now and stand a chance to win!" %}</p>
-</div>
-{% endblock fortuna_content %}
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="" href="{% url 'fortunaisk:main_view' %}">{% trans "Main Page" %}</a>
+                    </li>
+                    <li>
+                        <a class="" href="{% url 'fortunaisk:history_view' %}">{% trans "Winners History" %}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="col-md-12">
+        <h2 class="text-center">{% trans "Current FortunaISK Jackpot" %}</h2>
+        <p class="text-center"><strong>1,000,000 ISK</strong></p>
+        <p class="text-center">{% trans "Participate now for a chance to win!" %}</p>
+    </div>
+{% endblock ct_block %}
+
+{% block extra_javascript %}
+    <script>
+        $(document).ready(function() {
+            console.log("FortunaISK page loaded successfully.");
+        });
+    </script>
+{% endblock extra_javascript %}
