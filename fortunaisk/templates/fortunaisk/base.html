@@ -1,5 +1,5 @@
 {% extends "allianceauth/base.html" %}
-{% load i18n %} <!-- Ajoutez cette ligne pour charger le module de traduction -->
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +15,7 @@
                 <li><a href="{% url 'fortunaisk:history_view' %}">{% trans "Winners History" %}</a></li>
             </ul>
         </nav>
-        <h1>{% block title %}FortunaISK - Alliance Auth{% endblock %}</h1>
+        <h1>FortunaISK - Alliance Auth</h1> <!-- Texte statique ici -->
     </header>
     <main>
         {% block fortuna_content %}{% endblock %}
