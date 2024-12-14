@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 
-class FortunaISKConfig(AppConfig):
+class FortunaiskConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'fortunaisk'
-    verbose_name = "Fortuna ISK Raffle"

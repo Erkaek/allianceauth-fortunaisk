@@ -1,45 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-import logging
-
-logger = logging.getLogger(__name__)
-
-@login_required
-def main_view(request):
-    """
-    Main view for FortunaISK Lottery.
-    """
-    # Exemple de données de test
-    jackpot = 10000000
-    user_participation = True  # Modifier selon les conditions réelles
-
-    # Log pour débogage
-    logger.debug(f"Main View - Jackpot: {jackpot}, Participation: {user_participation}")
-
-    context = {
-        "jackpot": jackpot,
-        "user_participation": user_participation,
-    }
-
-    return render(request, "fortunaisk/main.html", context)
-
+from django.contrib import messages
+from .models import Ticket, Pot
 
 @login_required
-def history_view(request):
-    """
-    View to display the history of lottery winners.
-    """
-    # Exemple de données statiques pour l'historique des gagnants
-    winners = [
-        {"date": "2024-12-01", "winner": "John Doe", "jackpot": "10,000,000 ISK"},
-        {"date": "2024-11-01", "winner": "Jane Smith", "jackpot": "8,000,000 ISK"},
-    ]
+def buy_tickets(request):
+    if request.method == "POST":
+        try:
+            amount = int(request.POST.get("amount", 0))
+            if amount <= 0:
+                raise ValueError("Amount must be positive.")
+            
+            ticket = Ticket.objects.create(user=request.user, amount=amount)
+            pot = Pot.objects.last() or Pot.objects.create()
+            pot.total_amount += amount * 1000000  # 1 ticket = 1M ISK
+            pot.save()
+            messages.success(request, f"You successfully bought {amount} tickets!")
+        except Exception as e:
+            messages.error(request, f"Error: {e}")
+        return redirect('buy_tickets')
 
-    # Log pour débogage
-    logger.debug(f"History View - Winners: {winners}")
-
-    context = {
-        "winners": winners,
-    }
-
-    return render(request, "fortunaisk/history.html", context)
+    return render(request, "fortunaisk/buy_tickets.html", {"pot": Pot.objects.last()})
