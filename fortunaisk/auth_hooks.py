@@ -1,39 +1,22 @@
-from allianceauth.services.hooks import MenuItemHook, UrlHook
-from allianceauth import hooks
-from django.utils.translation import gettext_lazy as _
-from . import urls
+from allianceauth.hooks import DashboardHook
 
-
-class FortunaISKMenu(MenuItemHook):
+class FortunaISKDashboard(DashboardHook):
     """
-    Menu entry for FortunaISK.
+    Widget pour le tableau de bord d'Alliance Auth.
     """
-    def __init__(self):
-        super().__init__(
-            _("FortunaISK"),
-            "fas fa-ticket-alt",  # Icône Font Awesome
-            "fortunaisk:main_view",
-            navactive=["fortunaisk:"]
-        )
-
     def render(self, request):
-        # Vérifiez les permissions avant d'afficher l'entrée du menu
+        # Assurez-vous que seuls les utilisateurs autorisés voient ce widget
         if request.user.has_perm("fortunaisk.view_raffle"):
-            return super().render(request)
+            return """
+            <div class="panel panel-default">
+                <div class="panel-heading">FortunaISK Lottery</div>
+                <div class="panel-body">
+                    <p>Participate in this month's lottery and win big!</p>
+                    <a href="/fortunaisk/" class="btn btn-primary">Go to FortunaISK</a>
+                </div>
+            </div>
+            """
         return ""
 
-
-@hooks.register("menu_item_hook")
-def register_menu():
-    """
-    Enregistre le menu pour le module FortunaISK.
-    """
-    return FortunaISKMenu()
-
-
-@hooks.register("url_hook")
-def register_urls():
-    """
-    Enregistre les URL pour le module FortunaISK.
-    """
-    return UrlHook(urls, "fortunaisk", r"^fortunaisk/")
+# Enregistrez le hook
+DashboardHook.register(FortunaISKDashboard)
