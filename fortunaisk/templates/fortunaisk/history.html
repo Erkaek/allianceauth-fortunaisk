@@ -1,19 +1,5 @@
 {% extends "base.html" %}
-
-{% block title %}Historique des Gagnants{% endblock %}
-
 {% block content %}
 <h1>Historique des Gagnants</h1>
-
-{% if winners %}
-    <ul>
-        {% for winner in winners %}
-            <li>
-                {{ winner.draw_date }} : {{ winner.main_character }} - {{ winner.total_pot }} ISK
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Aucun gagnant pour l'instant.</p>
-{% endif %}
+<p>Aucun gagnant enregistré pour le moment.</p>
 {% endblock %}

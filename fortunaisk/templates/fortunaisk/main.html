@@ -1,16 +1,5 @@
 {% extends "base.html" %}
-
-{% block title %}FortunaISK - Loterie{% endblock %}
-
 {% block content %}
-<h1>Bienvenue dans la Loterie FortunaISK</h1>
-<p>Pot total : {{ total_pot }} ISK</p>
-<p>Valeur d'un ticket : {{ ticket_value }} ISK</p>
-<p>Tickets vendus : {{ total_tickets }}</p>
-
-{% if has_active_participation %}
-    <p>Vous avez déjà participé à la loterie ce mois-ci.</p>
-{% else %}
-    <p>Vous n'avez pas encore participé à la loterie ce mois-ci. Consultez les instructions pour participer.</p>
-{% endif %}
+<h1>Bienvenue dans FortunaISK</h1>
+<p>Contenu principal de la loterie.</p>
 {% endblock %}
