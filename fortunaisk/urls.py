@@ -11,10 +11,10 @@ app_name = 'fortunaisk'
 # Hook pour le menu principal d'Alliance Auth
 class RaffleMenu(MenuItemHook):
     def __init__(self):
-        logger.debug("[DEBUG] Hook RaffleMenu enregistré pour FortunaISK.")
+        logger.debug("[DEBUG] Hook RaffleMenu chargé pour FortunaISK.")
         super().__init__(
-            _('FortunaISK'),  # Nom dans le menu
-            'fortunaisk:main_view',  # Vue associée
+            _('FortunaISK'),
+            'fortunaisk:main_view',
             navactive=['fortunaisk']
         )
 
