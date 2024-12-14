@@ -1,4 +1,4 @@
-include LICENSE
 include README.md
-recursive-include fortunaisk/templates *.html
-recursive-include fortunaisk/static *.css *.js
+include LICENSE
+recursive-include fortunaisk/templates *
+recursive-include fortunaisk/static *
