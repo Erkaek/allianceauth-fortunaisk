@@ -1,23 +1,25 @@
-{% extends "fortunaisk/menu.html" %}
+{% extends "allianceauth/base.html" %}
 {% load i18n %}
 
 {% block title %}{% translate "FortunaISK Current Lottery" %}{% endblock title %}
 
-{% block fortunaisk_content %}
-<h2 class="mb-3">{% translate "FortunaISK - Loterie en cours" %}</h2>
-{% if lottery %}
-    <div class="card mb-3">
-        <div class="card-body">
-            <p><strong>{% translate "Name" %}:</strong> {{ lottery.name }}</p>
-            <p><strong>{% translate "Ticket Price" %}:</strong> {{ lottery.ticket_price }} ISK</p>
-            <p><strong>{% translate "Reference" %}:</strong> {{ lottery.reference_code }}</p>
-            <p><strong>{% translate "End Date" %}:</strong> {{ lottery.end_date }}</p>
-            <p><strong>{% translate "Tickets Sold" %}:</strong> {{ lottery.entries.count }}</p>
+{% block content %}
+<div class="container-fluid mt-4">
+    <h2 class="mb-3">{% translate "FortunaISK - Current Lottery" %}</h2>
+    {% if lottery %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p><strong>{% translate "Name" %}:</strong> {{ lottery.name }}</p>
+                <p><strong>{% translate "Ticket Price" %}:</strong> {{ lottery.ticket_price }} ISK</p>
+                <p><strong>{% translate "Reference" %}:</strong> {{ lottery.reference_code }}</p>
+                <p><strong>{% translate "End Date" %}:</strong> {{ lottery.end_date }}</p>
+                <p><strong>{% translate "Tickets Sold" %}:</strong> {{ lottery.entries.count }}</p>
+            </div>
         </div>
-    </div>
-{% else %}
-    <div class="alert alert-info">
-        {% translate "No active lottery at the moment." %}
-    </div>
-{% endif %}
-{% endblock fortunaisk_content %}
+    {% else %}
+        <div class="alert alert-info">
+            {% translate "No active lottery at the moment." %}
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}
