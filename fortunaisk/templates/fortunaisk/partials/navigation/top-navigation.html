@@ -1,13 +1,7 @@
 <ul class="nav navbar-nav">
-    <li>
-        <a href="{% url 'fortunaisk:tickets_list' %}">{% translate "Tickets" %}</a>
-    </li>
-    <li>
-        <a href="{% url 'fortunaisk:winners_list' %}">{% translate "Winners" %}</a>
-    </li>
+    <li><a href="{% url 'fortunaisk:tickets_list' %}">{% translate "My Tickets" %}</a></li>
+    <li><a href="{% url 'fortunaisk:winner_list' %}">{% translate "Winners" %}</a></li>
     {% if perms.fortunaisk.admin %}
-    <li>
-        <a href="{% url 'fortunaisk:admin' %}">{% translate "Admin Dashboard" %}</a>
-    </li>
+    <li><a href="{% url 'fortunaisk:admin' %}">{% translate "Admin Dashboard" %}</a></li>
     {% endif %}
 </ul>
