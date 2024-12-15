@@ -1,5 +1,7 @@
 from allianceauth import hooks
 from allianceauth.services.hooks import MenuItemHook, UrlHook
+from .models import Ticket, Winner
+
 
 from fortunaisk import models
 
