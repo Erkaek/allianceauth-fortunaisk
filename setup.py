@@ -21,7 +21,6 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'allianceauth-corp-tools>=2.8.0',
         'django>=3.2',
     ],
 )
