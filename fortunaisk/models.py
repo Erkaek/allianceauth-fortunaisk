@@ -24,3 +24,4 @@ class Winner(models.Model):
 
     def __str__(self):
         return f"Winner: {self.character} - {self.ticket.ticket_ref}"
+
