@@ -5,6 +5,6 @@ app_name = 'fortunaisk'
 
 urlpatterns = [
     path('tickets/', views.tickets_list, name='tickets_list'),
-    path('winners/', views.winners_list, name='winners_list'),
-    path('admin/', views.admin_dashboard, name='admin_dashboard'),
+    path('winners/', views.winners_list, name='winner_list'),  # Ensure this matches 'winner_list'
+    path('admin/', views.admin_dashboard, name='admin'),
 ]
