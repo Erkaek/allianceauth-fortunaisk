@@ -1,5 +1,5 @@
 from allianceauth.services.hooks import UrlHook, MenuItemHook
-from allianceauth.services.modules.base import MenuItem
+from allianceauth.services.hooks.models import MenuItem
 from django.urls import reverse
 
 class FortunaISKUrls(UrlHook):
