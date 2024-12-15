@@ -18,4 +18,8 @@ def register_menu():
 
 @hooks.register('url_hook')
 def register_url():
-    return UrlHook(urls='fortunaisk.urls', namespace='fortunaisk')
+    return UrlHook(
+        urls='fortunaisk.urls',
+        namespace='fortunaisk',
+        base_url=r'^fortunaisk/'
+    )
