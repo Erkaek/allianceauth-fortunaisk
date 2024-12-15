@@ -9,14 +9,13 @@ class FortunaISKUrls(UrlHook):
 
 class FortunaISKMenu(MenuItemHook):
     def __init__(self):
-        # Le deuxième argument doit être une URL déjà résolue,
-        # par exemple via reverse(), et non le nom du pattern.
         super().__init__(
-            'FortunaISK',
-            reverse('fortunaisk:current_lottery'),  # URL résolue grâce à reverse
-            'fa fa-ticket',                         # Icône en troisième argument
+            'FortunaISK',                  # Texte de l'item
+            'fortunaisk:current_lottery',  # Nom du pattern d'URL (DOIT ÊTRE LE 2e argument)
+            'fa fa-ticket',                # Icône (3e argument)
             navactive=['fortunaisk:']
         )
+
 
 @hooks.register('url_hook')
 def register_urls():
