@@ -11,9 +11,13 @@ class FortunaISKUrls(UrlHook):
 
 class FortunaISKMenu(MenuItemHook):
     def __init__(self):
+        # text = 'FortunaISK'
+        # url_name = 'fortunaisk:current_lottery' (le nom du pattern d'url)
+        # icon = 'fa fa-ticket'
+        # navactive = ['fortunaisk:']
         super().__init__(
             'FortunaISK',
-            reverse('fortunaisk:current_lottery'),
+            'fortunaisk:current_lottery',
             'fa fa-ticket',
             navactive=['fortunaisk:']
         )
