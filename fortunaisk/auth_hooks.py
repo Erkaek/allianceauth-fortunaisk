@@ -2,22 +2,19 @@ from allianceauth import hooks
 from allianceauth.services.hooks import UrlHook
 from django.urls import reverse
 
-class FortunaISKUrlHook(UrlHook):
-    app_name = 'fortunaisk'
-    url_module = 'fortunaisk.urls'
-
-    def __init__(self):
-        super().__init__()
-
 @hooks.register('url_hook')
 def fortunaisk_url_hook():
-    # Retourne une instance du hook URL
-    return FortunaISKUrlHook()
+    # Import des URL patterns de l'app
+    from fortunaisk import urls
+    # On retourne une instance de UrlHook
+    # urls.urlpatterns : la liste de vos urls
+    # 'fortunaisk' : le namespace
+    # 'fortunaisk/' : le préfixe d'URL
+    return UrlHook(urls.urlpatterns, 'fortunaisk', base_url='fortunaisk/')
 
 @hooks.register('menu_item_hook')
 def fortunaisk_menu():
-    # Maintenant que les URLs sont gérées par le UrlHook,
-    # le namespace 'fortunaisk' est connu et on peut faire reverse()
+    # Maintenant, le namespace 'fortunaisk' est enregistré via le url_hook
     return {
         'name': 'FortunaISK',
         'icon': 'fa fa-ticket',
