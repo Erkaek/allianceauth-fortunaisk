@@ -1,20 +1,13 @@
 from allianceauth import hooks
 from django.urls import reverse
 
-class FortunaISKMenuItem(hooks.NavigationExtension):
-    def nav_items(self, request, context):
-        if request.user.is_authenticated:
-            return [
-                {
-                    'title': 'FortunaISK',
-                    'url': reverse('fortunaisk:current_lottery'),
-                    'icon': 'fa fa-ticket',
-                    'children': [
-                        {'title': 'Loterie en cours', 'url': reverse('fortunaisk:current_lottery')},
-                        {'title': 'Historique des gagnants', 'url': reverse('fortunaisk:winners_history')}
-                    ]
-                }
-            ]
-        return []
-
-hooks.register('navigation_extension', FortunaISKMenuItem)
+@hooks.register('menu_item_hook')
+def fortunaisk_menu():
+    return {
+        'name': 'FortunaISK',
+        'icon': 'fa fa-ticket',
+        'children': [
+            {'name': 'Loterie en cours', 'url': reverse('fortunaisk:current_lottery')},
+            {'name': 'Historique des gagnants', 'url': reverse('fortunaisk:winners_history')}
+        ]
+    }
