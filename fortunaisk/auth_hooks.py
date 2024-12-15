@@ -1,5 +1,4 @@
 # fortunaisk/auth_hooks.py
-
 from allianceauth import hooks
 from allianceauth.services.hooks import UrlHook, MenuItemHook
 from django.urls import reverse
@@ -7,7 +6,8 @@ from django.urls import reverse
 class FortunaISKUrls(UrlHook):
     def __init__(self):
         from . import urls
-        super().__init__(urls.urlpatterns, 'fortunaisk', 'fortunaisk/')
+        # On passe un tuple (urlpatterns, 'app_name')
+        super().__init__((urls.urlpatterns, 'fortunaisk'), 'fortunaisk', 'fortunaisk/')
 
 class FortunaISKMenu(MenuItemHook):
     def __init__(self):
