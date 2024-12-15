@@ -3,7 +3,7 @@ from .models import Ticket, Winner
 
 def ticket_list(request):
     tickets = Ticket.objects.all()
-    return render(request, "fortunaisk/ticket.html", {"tickets": tickets})
+    return render(request, "fortunaisk/tickets.html", {"tickets": tickets})
 
 def winner_list(request):
     winners = Winner.objects.all()

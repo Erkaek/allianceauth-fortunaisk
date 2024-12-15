@@ -7,7 +7,7 @@ class FortunaMenu(MenuItemHook):
         super().__init__(
             "Fortuna Tickets",
             "fas fa-ticket-alt fa-fw",  # Icône de menu
-            "fortunaisk:ticket_list",  # Nom d'URL correspondant à la liste des tickets
+            "fortunaisk:tickets_list",  # Nom d'URL correspondant à la liste des tickets
             navactive=["fortunaisk:"]
         )
 
