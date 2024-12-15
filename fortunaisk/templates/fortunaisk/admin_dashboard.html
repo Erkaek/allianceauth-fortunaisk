@@ -1,57 +1,44 @@
-{% extends "allianceauth/base.html" %}
-{% load i18n %}
-{% block page_title %}
-    {% translate "Admin Dashboard" %}
-{% endblock page_title %}
-{% block content %}
-<div class="container">
-    <h2>{% translate "Admin Dashboard" %}</h2>
-    <h3>{% translate "Tickets" %}</h3>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>{% translate "Reference" %}</th>
-                <th>{% translate "Character" %}</th>
-                <th>{% translate "Amount" %}</th>
-                <th>{% translate "Paid" %}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ticket in tickets %}
-                <tr>
-                    <td>{{ ticket.ticket_ref }}</td>
-                    <td>{{ ticket.character }}</td>
-                    <td>{{ ticket.amount }}</td>
-                    <td>
-                        {% if ticket.paid %}
-                            <span class="text-success">{% translate "Yes" %}</span>
-                        {% else %}
-                            <span class="text-danger">{% translate "No" %}</span>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+{% extends "allianceauth/base-bs5.html" %}
 
-    <h3>{% translate "Winners" %}</h3>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>{% translate "Character" %}</th>
-                <th>{% translate "Ticket" %}</th>
-                <th>{% translate "Won At" %}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for winner in winners %}
-                <tr>
-                    <td>{{ winner.character }}</td>
-                    <td>{{ winner.ticket.ticket_ref }}</td>
-                    <td>{{ winner.won_at|date:"Y-m-d H:i" }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+{% load i18n %}
+
+{% block page_title %}
+    {% translate "Fortunaisk Administration" %}
+{% endblock %}
+
+{% block header_nav_brand %}
+    {% translate "Fortunaisk" %}
+{% endblock %}
+
+{% block header_nav_collapse_left %}
+    {% include "fortunaisk/partials/navigation/top-navigation.html" %}
+{% endblock %}
+
+{% block header_nav_collapse_right %}
+    {% include "fortunaisk/partials/navigation/actions.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="fortunaisk">
+        <div class="fortunaisk-header">
+            <h2>{% translate "Administration Dashboard" %}</h2>
+        </div>
+
+        <div class="fortunaisk-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>{% translate "Tickets Overview" %}</h3>
+                    <p>{% translate "Manage tickets for all users." %}</p>
+                </div>
+                <div class="col-md-6">
+                    <h3>{% translate "Winners Overview" %}</h3>
+                    <p>{% translate "View and manage winners." %}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fortunaisk-footer mt-3 pt-3 border-top border-light">
+            {% include "fortunaisk/partials/footer/app-translation-footer.html" %}
+        </div>
+    </div>
 {% endblock %}
