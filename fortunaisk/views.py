@@ -10,9 +10,11 @@ def tickets_list(request):
 
 
 @login_required
-def winners_list(request):
+def winner_list(request):
+    """View for displaying the list of winners."""
     winners = Winner.objects.all()
     return render(request, 'fortunaisk/winners_list.html', {'winners': winners})
+
 
 
 @permission_required('fortunaisk.admin')
