@@ -1,29 +1,35 @@
 from allianceauth import hooks
 from allianceauth.services.hooks import MenuItemHook, UrlHook
 
+from . import urls
 
-class FortunaiskMenu(MenuItemHook):
+
+class FortunaiskMenuItem(MenuItemHook):
+    """Menu entry for Fortunaisk, visible only to authorized users"""
+
     def __init__(self):
-        # Suppression de l'argument "name" et remplacement par le format attendu
-        super().__init__(
-            app_name="Fortunaisk",
-            icon_class="fas fa-coins fa-fw",
-            url_name="fortunaisk:ticket_list",
-            navactive=["fortunaisk:"]
+        # Initialize menu entry for Fortunaisk in the sidebar
+        MenuItemHook.__init__(
+            self,
+            "Fortunaisk",
+            "fas fa-coins fa-fw",
+            "fortunaisk:ticket_list",
+            navactive=["fortunaisk:"],
         )
 
     def render(self, request):
-        if request.user.has_perm('fortunaisk.view_ticket'):
-            return super().render(request)
-        return ''
+        # Only render the menu for users with appropriate permissions
+        if request.user.has_perm("fortunaisk.view_ticket"):
+            return MenuItemHook.render(self, request)
+        return ""
 
 
-@hooks.register('menu_item_hook')
+@hooks.register("menu_item_hook")
 def register_menu():
-    return FortunaiskMenu()
+    return FortunaiskMenuItem()
 
 
-@hooks.register('url_hook')
+@hooks.register("url_hook")
 def register_urls():
-    from . import urls
-    return UrlHook(urls, 'fortunaisk', r'^fortunaisk/')
+    # Register URL patterns for Fortunaisk
+    return UrlHook(urls, "fortunaisk", r"^fortunaisk/")
