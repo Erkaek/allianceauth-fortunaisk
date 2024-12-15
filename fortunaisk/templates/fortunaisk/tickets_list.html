@@ -1,9 +1,8 @@
 {% extends "allianceauth/base-bs5.html" %}
-
 {% load i18n %}
 
 {% block page_title %}
-    {% translate "Tickets" %}
+    {% translate "My Tickets" %}
 {% endblock %}
 
 {% block header_nav_brand %}
@@ -19,38 +18,29 @@
 {% endblock %}
 
 {% block content %}
-    <div class="fortunaisk">
-        <div class="fortunaisk-header">
-            <h2>{% translate "My Tickets" %}</h2>
-        </div>
-
-        <div class="fortunaisk-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>{% translate "Reference" %}</th>
-                        <th>{% translate "Amount" %}</th>
-                        <th>{% translate "Paid" %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for ticket in tickets %}
-                    <tr>
-                        <td>{{ ticket.ticket_ref }}</td>
-                        <td>{{ ticket.amount }}</td>
-                        <td>{{ ticket.paid|yesno:"Yes,No" }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="3" class="text-center">{% translate "No tickets available" %}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="fortunaisk-footer mt-3 pt-3 border-top border-light">
-            {% include "fortunaisk/partials/footer/app-translation-footer.html" %}
-        </div>
-    </div>
+<div class="fortunaisk">
+    <h2>{% translate "My Tickets" %}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>{% translate "Reference" %}</th>
+                <th>{% translate "Amount" %}</th>
+                <th>{% translate "Paid" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.ticket_ref }}</td>
+                <td>{{ ticket.amount }}</td>
+                <td>{{ ticket.paid }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">{% translate "No tickets available" %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
