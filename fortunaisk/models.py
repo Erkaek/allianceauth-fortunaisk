@@ -13,7 +13,6 @@ class Ticket(models.Model):
 
     class Meta:
         permissions = [
-            ("view_ticket", "Can view tickets"),
             ("admin", "Can manage Fortunaisk tickets and winners"),
         ]
 
@@ -27,10 +26,8 @@ class Winner(models.Model):
     
     class Meta:
         permissions = [
-            ("view_ticket", "Can view tickets"),
             ("admin", "Can manage Fortunaisk tickets and winners"),
         ]
 
     def __str__(self):
         return f"Winner: {self.character} - {self.ticket.ticket_ref}"
-
