@@ -3,7 +3,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'fortunaisk'
+app_name = 'fortunaisk'  # Nécessaire pour le namespace
 
 urlpatterns = [
     path('', views.current_lottery, name='current_lottery'),

@@ -6,13 +6,14 @@ from . import urls
 
 class FortunaISKUrls(UrlHook):
     def __init__(self):
-        # Passez les urlpatterns, le namespace et le préfixe correctement
+        # Inclut les URL patterns avec le namespace 'fortunaisk' et le préfixe 'fortunaisk/'
         super().__init__(urls.urlpatterns, 'fortunaisk', 'fortunaisk/')
 
 class FortunaISKMenu(MenuItemHook):
     def __init__(self):
+        # Initialise le MenuItemHook avec le texte, l'icône, le nom de l'URL et le namespace
         super().__init__(
-            'FortunaISK',                     # Texte affiché dans le menu principal
+            'FortunaISK',                     # Texte affiché dans le menu
             'fa fa-ticket',                   # Icône Font Awesome
             'fortunaisk:current_lottery',     # Nom du pattern d'URL
             navactive=['fortunaisk:']         # Namespace pour activer l'élément de menu
