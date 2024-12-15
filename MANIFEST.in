@@ -1,0 +1,4 @@
+include README.md
+recursive-include fortunaisk/templates *
+recursive-include fortunaisk/static *
+recursive-include fortunaisk/migrations *

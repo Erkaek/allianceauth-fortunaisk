@@ -1,16 +1,14 @@
 # FortunaISK
 
-FortunaISK est un plugin pour Alliance Auth qui gère une loterie mensuelle. 
-Les joueurs achètent des tickets en envoyant des ISK au wallet de la corporation avec une référence spécifique.
+FortunaISK is a monthly lottery module for Alliance Auth.
+
+## Features
+- Configurable ticket price and unique reference ID.
+- Automatic verification of payments using `allianceauth-corp-tools`.
+- History of winners available in the UI.
 
 ## Installation
 
-1. Clonez ce dépôt dans votre environnement Alliance Auth.
-2. Ajoutez `fortunaisk` à `INSTALLED_APPS` dans `settings.py`.
-3. Exécutez `python manage.py migrate`.
-4. Redémarrez votre serveur.
-
-## Fonctionnalités
-
-- Vérification automatique des paiements via ESI.
-- Configuration simple du prix des tickets et de la référence unique.
+1. Install the package:
+   ```bash
+   pip install fortunaisk
