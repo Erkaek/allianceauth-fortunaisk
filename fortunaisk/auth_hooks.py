@@ -1,4 +1,5 @@
 # auth_hooks.py
+from allianceauth import hooks
 from allianceauth.services.hooks import MenuItemHook, UrlHook
 from django.urls import reverse_lazy
 
