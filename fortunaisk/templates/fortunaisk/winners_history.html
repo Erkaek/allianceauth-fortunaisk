@@ -1,10 +1,10 @@
 {% extends "fortunaisk/menu.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "FortunaISK Winners History" %}{% endblock %}
+{% block title %}{% translate "FortunaISK Winners History" %}{% endblock title %}
 
 {% block fortunaisk_content %}
-<h2>{% translate "Historique des gagnants" %}</h2>
+<h2 class="mb-3">{% translate "Historique des gagnants" %}</h2>
 {% for lot in past_lotteries %}
     <div class="card mb-3">
         <div class="card-header">{{ lot.name }}</div>
@@ -19,6 +19,8 @@
         </div>
     </div>
 {% empty %}
-    <div class="alert alert-info">{% translate "No past lotteries found." %}</div>
+    <div class="alert alert-info">
+        {% translate "No past lotteries found." %}
+    </div>
 {% endfor %}
 {% endblock fortunaisk_content %}

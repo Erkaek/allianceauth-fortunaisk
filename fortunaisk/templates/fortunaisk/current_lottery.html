@@ -1,10 +1,10 @@
 {% extends "fortunaisk/menu.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "FortunaISK Current Lottery" %}{% endblock %}
+{% block title %}{% translate "FortunaISK Current Lottery" %}{% endblock title %}
 
 {% block fortunaisk_content %}
-<h2>{% translate "FortunaISK - Loterie en cours" %}</h2>
+<h2 class="mb-3">{% translate "FortunaISK - Loterie en cours" %}</h2>
 {% if lottery %}
     <div class="card mb-3">
         <div class="card-body">
@@ -16,6 +16,8 @@
         </div>
     </div>
 {% else %}
-    <div class="alert alert-info">{% translate "No active lottery at the moment." %}</div>
+    <div class="alert alert-info">
+        {% translate "No active lottery at the moment." %}
+    </div>
 {% endif %}
 {% endblock fortunaisk_content %}
