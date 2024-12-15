@@ -1,3 +1,4 @@
+<!-- fortunaisk/templates/fortunaisk/menu.html -->
 {% extends "allianceauth/base.html" %}
 {% load i18n %}
 
@@ -6,8 +7,8 @@
 {% block content %}
 <div class="container-fluid mt-4">
     <div class="card">
-        <div class="card-header bg-dark">
-            <ul class="nav nav-tabs card-header-tabs" style="border-bottom: none;">
+        <div class="card-header bg-primary text-white">
+            <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'current_lottery' %}active{% endif %}"
                        href="{% url 'fortunaisk:current_lottery' %}">
