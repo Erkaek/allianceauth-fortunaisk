@@ -1,29 +1,18 @@
 from allianceauth import hooks
-from allianceauth.services.hooks import ServiceHook
 from django.urls import include, path, reverse
 
-class FortunaISKService(ServiceHook):
-    name = 'FortunaISK'
-    app_name = 'fortunaisk'
-    icon = 'fa fa-ticket'
+@hooks.register('url_hook')
+def fortunaisk_url_hook():
+    # Import des urls de l'app
+    from fortunaisk import urls
+    # On retourne un pattern qui inclut les URLs de l'app sous le namespace 'fortunaisk'
+    return path('fortunaisk/', include((urls, 'fortunaisk'), namespace='fortunaisk'))
 
-    @property
-    def urlpatterns(self):
-        # Import local URLs ici pour éviter les références circulaires
-        from fortunaisk import urls
-        # On inclut les URLs de l'app avec le namespace fortunaisk
-        return [
-            path('', include((urls, self.app_name), namespace=self.app_name)),
-        ]
-
-@hooks.register('services_hook')
-def fortunaisk_service():
-    # On retourne la classe, pas une instance
-    return FortunaISKService
 
 @hooks.register('menu_item_hook')
 def fortunaisk_menu():
-    # Maintenant que le service est enregistré, le namespace 'fortunaisk' est connu
+    # Maintenant que les URLs sont enregistrées via url_hook, 
+    # le namespace 'fortunaisk' est connu de Django.
     return {
         'name': 'FortunaISK',
         'icon': 'fa fa-ticket',
