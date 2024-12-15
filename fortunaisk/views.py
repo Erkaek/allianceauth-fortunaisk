@@ -1,13 +1,15 @@
-# fortunaisk/views.py
-
 from django.shortcuts import render
-from django.utils import timezone
-from .models import Lottery
+from .models import LotteryConfig, LotteryWinner
 
-def current_lottery(request):
-    lottery = Lottery.objects.filter(is_active=True, end_date__gte=timezone.now()).first()
-    return render(request, 'fortunaisk/current_lottery.html', {'lottery': lottery})
+def index(request):
+    config = LotteryConfig.objects.last()
+    context = {
+        'ticket_price': config.ticket_price if config else 0,
+        'reference_id': config.reference_id if config else "No Reference",
+        'corporation_id': config.corporation_id if config else 0,
+    }
+    return render(request, 'fortunaisk/index.html', context)
 
-def winners_history(request):
-    past_lotteries = Lottery.objects.filter(is_active=False).order_by('-end_date')
-    return render(request, 'fortunaisk/winners_history.html', {'past_lotteries': past_lotteries})
+def winners(request):
+    winners = LotteryWinner.objects.all().order_by('-date')
+    return render(request, 'fortunaisk/winners.html', {'winners': winners})

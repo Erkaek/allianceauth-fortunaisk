@@ -1,11 +1,9 @@
-# fortunaisk/urls.py
-
 from django.urls import path
 from . import views
 
-app_name = 'fortunaisk'  # Nécessaire pour le namespace
+app_name = 'fortunaisk'
 
 urlpatterns = [
-    path('', views.current_lottery, name='current_lottery'),
-    path('winners/', views.winners_history, name='winners_history'),
+    path('', views.index, name='index'),
+    path('winners/', views.winners, name='winners'),
 ]

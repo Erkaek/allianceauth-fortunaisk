@@ -1,4 +1,0 @@
-include README.md
-include LICENSE
-recursive-include fortunaisk/templates *
-recursive-include fortunaisk/static *

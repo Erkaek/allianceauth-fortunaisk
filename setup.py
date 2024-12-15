@@ -2,10 +2,17 @@ from setuptools import setup, find_packages
 
 setup(
     name='fortunaisk',
-    version='0.1',
+    version='1.0',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'allianceauth>=4.0',
+        'django>=3.2',
+        'allianceauth>=2.9',
     ],
+    zip_safe=False,
+    entry_points={
+        'allianceauth_plugins': [
+            'fortunaisk = fortunaisk',
+        ],
+    },
 )

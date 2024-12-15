@@ -1,0 +1,15 @@
+{% extends "allianceauth/base.html" %}
+
+{% block title %}FortunaISK{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>FortunaISK Lottery</h1>
+    <p>Welcome to the FortunaISK Lottery! To participate:</p>
+    <ol>
+        <li>Send <strong>{{ ticket_price|floatformat:"-3" }} ISK</strong> to the corporation wallet ID: <strong>{{ corporation_id }}</strong></li>
+        <li>Use the following reference in the transaction message: <strong>{{ reference_id }}</strong></li>
+    </ol>
+    <a href="{% url 'fortunaisk:winners' %}" class="btn btn-primary">View Winners</a>
+</div>
+{% endblock %}

@@ -1,28 +1,21 @@
-# fortunaisk/auth_hooks.py
-
-from allianceauth import hooks
-from allianceauth.services.hooks import MenuItemHook, UrlHook
-from . import urls
+from allianceauth.services.hooks import UrlHook, MenuItemHook
+from allianceauth.services.modules.base import MenuItem
+from django.urls import reverse
 
 class FortunaISKUrls(UrlHook):
     def __init__(self):
-        # Inclut les URL patterns avec le namespace 'fortunaisk' et le préfixe 'fortunaisk/'
-        super().__init__(urls.urlpatterns, 'fortunaisk', 'fortunaisk/')
+        super().__init__([("fortunaisk.urls", "fortunaisk")], 'fortunaisk', 'fortunaisk/')
 
 class FortunaISKMenu(MenuItemHook):
     def __init__(self):
-        # Initialise le MenuItemHook avec le texte, l'icône, le nom de l'URL et le namespace
-        super().__init__(
-            'FortunaISK',                     # Texte affiché dans le menu
-            'fa fa-ticket',                   # Icône Font Awesome
-            'fortunaisk:current_lottery',     # Nom du pattern d'URL
-            navactive=['fortunaisk:']         # Namespace pour activer l'élément de menu
-        )
+        super().__init__([
+            MenuItem(
+                name="FortunaISK",
+                url=reverse('fortunaisk:index'),
+                perm="fortunaisk.access_fortunaisk",
+                icon="fas fa-dice"
+            )
+        ])
 
-@hooks.register('url_hook')
-def register_urlhook():
-    return FortunaISKUrls()
-
-@hooks.register('menu_item_hook')
-def register_menuhook():
-    return FortunaISKMenu()
+url_hook = FortunaISKUrls()
+menu_hook = FortunaISKMenu()
