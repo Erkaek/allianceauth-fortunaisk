@@ -7,7 +7,7 @@ from .models import Ticket, Winner
 def ticket_list(request):
     """View for displaying the list of tickets."""
     tickets = Ticket.objects.filter(character__character_ownership__user=request.user)
-    return render(request, 'fortunaisk/ticket.html', {'tickets': tickets})
+    return render(request, 'fortunaisk/tickets.html', {'tickets': tickets})
 
 
 @login_required
