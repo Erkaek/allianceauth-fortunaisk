@@ -1,0 +1,15 @@
+{% load i18n %}
+<ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'current_lottery' %}active{% endif %}"
+           href="{% url 'fortunaisk:current_lottery' %}">
+           {% translate "Current Lottery" %}
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'winners_history' %}active{% endif %}"
+           href="{% url 'fortunaisk:winners_history' %}">
+           {% translate "Winners History" %}
+        </a>
+    </li>
+</ul>
