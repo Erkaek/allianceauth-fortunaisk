@@ -5,6 +5,7 @@
 
 {% block content %}
 <div class="content-section">
+    {% include "fortunaisk/_nav.html" %}
     <h2>{% translate "Historique des gagnants" %}</h2>
     {% for lot in past_lotteries %}
         <div class="card mb-3">
