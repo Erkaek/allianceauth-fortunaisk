@@ -1,0 +1,11 @@
+<h1>Historique des gagnants</h1>
+{% for lot in past_lotteries %}
+    <h2>{{ lot.name }}</h2>
+    {% if lot.winner %}
+        <p>Gagnant : {{ lot.winner.user.username }}</p>
+        <p>Gain : {{ lot.winner.prize_amount }} ISK</p>
+        <p>Date du tirage : {{ lot.winner.date_drawn }}</p>
+    {% else %}
+        <p>Pas de gagnant enregistré.</p>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,10 @@
+<h1>Loterie en cours</h1>
+{% if lottery %}
+    <p>Nom : {{ lottery.name }}</p>
+    <p>Prix du ticket : {{ lottery.ticket_price }} ISK</p>
+    <p>Référence : {{ lottery.reference_code }}</p>
+    <p>Fin : {{ lottery.end_date }}</p>
+    <p>Tickets vendus : {{ lottery.entries.count }}</p>
+{% else %}
+    <p>Aucune loterie n'est actuellement en cours.</p>
+{% endif %}

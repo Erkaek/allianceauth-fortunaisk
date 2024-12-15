@@ -1,9 +1,9 @@
-# fortunaisk/urls.py
 from django.urls import path
-from .views import index
+from . import views
 
 app_name = 'fortunaisk'
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', views.current_lottery, name='current_lottery'),
+    path('winners/', views.winners_history, name='winners_history'),
 ]
