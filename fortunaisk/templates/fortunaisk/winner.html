@@ -1,27 +1,18 @@
 {% extends "allianceauth/base.html" %}
-
-{% block title %}Winners History{% endblock %}
-
 {% block content %}
-<div class="container mt-4">
-    <h1>Winners History</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Prize</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for winner in winners %}
-            <tr>
-                <td>{{ winner.username }}</td>
-                <td>{{ winner.prize }}</td>
-                <td>{{ winner.date }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+<h2>Winners</h2>
+<table>
+    <tr>
+        <th>Character</th>
+        <th>Ticket</th>
+        <th>Won At</th>
+    </tr>
+    {% for winner in winners %}
+    <tr>
+        <td>{{ winner.character }}</td>
+        <td>{{ winner.ticket.ticket_ref }}</td>
+        <td>{{ winner.won_at }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}

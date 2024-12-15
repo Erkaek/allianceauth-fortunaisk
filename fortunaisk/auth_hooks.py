@@ -1,22 +1,20 @@
+# auth_hooks.py
 from allianceauth.services.hooks import MenuItemHook, UrlHook
-from django.urls import reverse
+from django.urls import reverse_lazy
 
-class FortunaISKMenuItem(MenuItemHook):
+class FortunaISKMenu(MenuItemHook):
     def __init__(self):
         super().__init__(
             name="FortunaISK",
-            url=reverse('fortunaisk:index'),
+            url=reverse_lazy('fortunaisk:index'),
             icon="fas fa-dice",
-            perm="fortunaisk.view_fortunaisk",
+            perm="fortunaisk.view_tickets"
         )
 
-class FortunaISKUrls(UrlHook):
-    def __init__(self):
-        super().__init__(
-            urls='fortunaisk.urls',
-            namespace='fortunaisk',
-        )
+@hooks.register('menu_item_hook')
+def register_menu():
+    return FortunaISKMenu()
 
-# Enregistrer les hooks
-menu_item_hook = FortunaISKMenuItem()
-url_hook = FortunaISKUrls()
+@hooks.register('url_hook')
+def register_url():
+    return UrlHook(urls='fortunaisk.urls', namespace='fortunaisk')

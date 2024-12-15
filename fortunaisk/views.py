@@ -1,15 +1,16 @@
+# views.py
 from django.shortcuts import render
-from .models import LotteryConfig, LotteryWinner
+from django.contrib.auth.decorators import login_required
+from .models import Ticket, Winner
 
+@login_required
 def index(request):
-    config = LotteryConfig.objects.last()
-    context = {
-        'ticket_price': config.ticket_price if config else 0,
-        'reference_id': config.reference_id if config else "No Reference",
-        'corporation_id': config.corporation_id if config else 0,
-    }
-    return render(request, 'fortunaisk/index.html', context)
+    tickets = Ticket.objects.filter(character__character_ownership__user=request.user)
+    context = {'tickets': tickets}
+    return render(request, 'fortunaisk/tickets.html', context)
 
+@login_required
 def winners(request):
-    winners = LotteryWinner.objects.all().order_by('-date')
-    return render(request, 'fortunaisk/winners.html', {'winners': winners})
+    winners = Winner.objects.all().order_by('-won_at')
+    context = {'winners': winners}
+    return render(request, 'fortunaisk/winners.html', context)

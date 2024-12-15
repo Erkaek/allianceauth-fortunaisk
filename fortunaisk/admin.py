@@ -1,10 +1,11 @@
+# admin.py
 from django.contrib import admin
-from .models import LotteryConfig, LotteryWinner
+from .models import Ticket, Winner
 
-@admin.register(LotteryConfig)
-class LotteryConfigAdmin(admin.ModelAdmin):
-    list_display = ('reference_id', 'ticket_price', 'corporation_id')
+@admin.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    list_display = ('character', 'ticket_ref', 'amount', 'paid', 'created_at')
 
-@admin.register(LotteryWinner)
-class LotteryWinnerAdmin(admin.ModelAdmin):
-    list_display = ('username', 'prize', 'date')
+@admin.register(Winner)
+class WinnerAdmin(admin.ModelAdmin):
+    list_display = ('character', 'ticket', 'won_at')

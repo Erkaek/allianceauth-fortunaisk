@@ -1,17 +1,26 @@
+# models.py
 from django.db import models
+from django.utils import timezone
+from allianceauth.eveonline.models import EveCharacter
+from corptools.models import CorporationWalletJournalEntry
 
-class LotteryConfig(models.Model):
-    ticket_price = models.DecimalField(max_digits=20, decimal_places=2, default=10000000)  # 10M ISK par défaut
-    reference_id = models.CharField(max_length=255, unique=True)  # Référence unique
-    corporation_id = models.BigIntegerField()  # ID de la corporation
+class Ticket(models.Model):
+    character = models.ForeignKey(EveCharacter, on_delete=models.CASCADE, related_name='tickets')
+    amount = models.DecimalField(max_digits=20, decimal_places=2)
+    ticket_ref = models.CharField(max_length=72, unique=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    paid = models.BooleanField(default=False)
+    payment = models.OneToOneField(
+        CorporationWalletJournalEntry, null=True, blank=True, on_delete=models.SET_NULL
+    )
 
     def __str__(self):
-        return f"Loterie {self.reference_id}"
+        return f"{self.character} - {self.ticket_ref}"
 
-class LotteryWinner(models.Model):
-    username = models.CharField(max_length=255)
-    prize = models.DecimalField(max_digits=20, decimal_places=2)
-    date = models.DateField(auto_now_add=True)
+class Winner(models.Model):
+    character = models.ForeignKey(EveCharacter, on_delete=models.CASCADE)
+    ticket = models.OneToOneField(Ticket, on_delete=models.CASCADE)
+    won_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f"{self.username} won {self.prize} ISK on {self.date}"
+        return f"Winner: {self.character} - {self.ticket.ticket_ref}"

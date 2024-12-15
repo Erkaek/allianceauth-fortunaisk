@@ -1,0 +1,18 @@
+{% extends "allianceauth/base.html" %}
+{% block content %}
+<h2>My Tickets</h2>
+<table>
+    <tr>
+        <th>Reference</th>
+        <th>Amount</th>
+        <th>Paid</th>
+    </tr>
+    {% for ticket in tickets %}
+    <tr>
+        <td>{{ ticket.ticket_ref }}</td>
+        <td>{{ ticket.amount }}</td>
+        <td>{{ ticket.paid }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
