@@ -5,7 +5,7 @@ from django.utils import timezone
 class Lottery(models.Model):
     name = models.CharField(max_length=255)
     ticket_price = models.DecimalField(max_digits=15, decimal_places=2, help_text="Prix du ticket en ISK")
-    reference_code = models.CharField(max_length=50, unique=True, help_text="Code de référence unique pour l'identification des transactions")
+    reference_code = models.CharField(max_length=50, unique=True)
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField()
     is_active = models.BooleanField(default=True)
