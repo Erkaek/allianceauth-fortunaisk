@@ -1,21 +1,26 @@
-from allianceauth.services.hooks import UrlHook, MenuItemHook
-from allianceauth.services.hooks.models import MenuItem
+from allianceauth.services.hooks import MenuItemHook, UrlHook
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
-class FortunaISKUrls(UrlHook):
+class FortunaISKMenuItem(MenuItemHook):
     def __init__(self):
-        super().__init__([("fortunaisk.urls", "fortunaisk")], 'fortunaisk', 'fortunaisk/')
+        super().__init__(
+            _('FortunaISK'),
+            'fas fa-dice',
+            'fortunaisk:index',
+            navactive=['fortunaisk:'],
+            order=1001
+        )
 
-class FortunaISKMenu(MenuItemHook):
-    def __init__(self):
-        super().__init__([
-            MenuItem(
-                name="FortunaISK",
-                url=reverse('fortunaisk:index'),
-                perm="fortunaisk.access_fortunaisk",
-                icon="fas fa-dice"
-            )
-        ])
+    def render(self, request):
+        if request.user.has_perm('fortunaisk.view_fortunaisk'):
+            return super().render(request)
+        return ''
 
-url_hook = FortunaISKUrls()
-menu_hook = FortunaISKMenu()
+@hooks.register('menu_item_hook')
+def register_menu():
+    return FortunaISKMenuItem()
+
+@hooks.register('url_hook')
+def register_urls():
+    return UrlHook(urls, 'fortunaisk', r'^fortunaisk/')
