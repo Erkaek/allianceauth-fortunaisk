@@ -13,7 +13,7 @@ class FortunaiskMenuItem(MenuItemHook):
             self,
             "Fortunaisk",
             "fas fa-coins fa-fw",
-            "fortunaisk:ticket_list",
+            "fortunaisk:tickets_list",  # Correction ici pour correspondre à l'URL dans urls.py
             navactive=["fortunaisk:"],
         )
 
