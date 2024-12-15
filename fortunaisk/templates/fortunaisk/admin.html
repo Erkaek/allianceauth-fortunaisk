@@ -1,0 +1,26 @@
+{% extends "allianceauth/base.html" %}
+{% block page_title %}
+    Fortunaisk Admin Dashboard
+{% endblock page_title %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<p>Manage Fortunaisk Tickets and Winners.</p>
+<table>
+    <tr>
+        <th>Periodic Tasks</th>
+        <th>Actions</th>
+    </tr>
+    <tr>
+        <td>Check Payments Task</td>
+        <td>
+            <a class="btn btn-primary" href="{% url 'fortunaisk:ticket_list' %}">Manage Tickets</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Outstanding Payments Task</td>
+        <td>
+            <a class="btn btn-primary" href="{% url 'fortunaisk:winner_list' %}">Manage Winners</a>
+        </td>
+    </tr>
+</table>
+{% endblock %}

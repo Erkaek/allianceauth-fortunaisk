@@ -1,16 +1,21 @@
 {% extends "allianceauth/base.html" %}
+{% block page_title %}
+    My Contributions
+{% endblock %}
 {% block content %}
-<h2>My Tickets</h2>
+<h2>Your Contributions</h2>
 <table>
     <tr>
-        <th>Reference</th>
+        <th>Character</th>
         <th>Amount</th>
+        <th>Reference</th>
         <th>Paid</th>
     </tr>
     {% for ticket in tickets %}
     <tr>
-        <td>{{ ticket.ticket_ref }}</td>
+        <td>{{ ticket.character }}</td>
         <td>{{ ticket.amount }}</td>
+        <td>{{ ticket.ticket_ref }}</td>
         <td>{{ ticket.paid|yesno:"Yes,No" }}</td>
     </tr>
     {% endfor %}

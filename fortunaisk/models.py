@@ -10,9 +10,12 @@ class Ticket(models.Model):
     ticket_ref = models.CharField(max_length=72, unique=True)
     created_at = models.DateTimeField(default=timezone.now)
     paid = models.BooleanField(default=False)
-    payment = models.OneToOneField(
-        CorporationWalletJournalEntry, null=True, blank=True, on_delete=models.SET_NULL
-    )
+
+    class Meta:
+        permissions = [
+            ("view_ticket", "Can view tickets"),
+            ("admin", "Can manage Fortunaisk tickets and winners"),
+        ]
 
     def __str__(self):
         return f"{self.character} - {self.ticket_ref}"
@@ -21,6 +24,12 @@ class Winner(models.Model):
     character = models.ForeignKey(EveCharacter, on_delete=models.CASCADE)
     ticket = models.OneToOneField(Ticket, on_delete=models.CASCADE)
     won_at = models.DateTimeField(default=timezone.now)
+    
+    class Meta:
+        permissions = [
+            ("view_ticket", "Can view tickets"),
+            ("admin", "Can manage Fortunaisk tickets and winners"),
+        ]
 
     def __str__(self):
         return f"Winner: {self.character} - {self.ticket.ticket_ref}"
