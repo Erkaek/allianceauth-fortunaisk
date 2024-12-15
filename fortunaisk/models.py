@@ -1,8 +1,7 @@
-# models.py
 from django.db import models
 from django.utils import timezone
 from allianceauth.eveonline.models import EveCharacter
-from corptools.models import CorporationWalletJournalEntry
+
 
 class Ticket(models.Model):
     character = models.ForeignKey(EveCharacter, on_delete=models.CASCADE, related_name='tickets')
@@ -13,20 +12,23 @@ class Ticket(models.Model):
 
     class Meta:
         permissions = [
-            ("admin", "Can manage Fortunaisk tickets and winners"),
+            ("view_ticket", "Can view tickets"),
+            ("admin", "Can manage Fortunaisk tickets"),
         ]
 
     def __str__(self):
         return f"{self.character} - {self.ticket_ref}"
 
+
 class Winner(models.Model):
     character = models.ForeignKey(EveCharacter, on_delete=models.CASCADE)
     ticket = models.OneToOneField(Ticket, on_delete=models.CASCADE)
     won_at = models.DateTimeField(default=timezone.now)
-    
+
     class Meta:
         permissions = [
-            ("admin", "Can manage Fortunaisk tickets and winners"),
+            ("view_winner", "Can view winners"),
+            ("admin", "Can manage Fortunaisk winners"),
         ]
 
     def __str__(self):

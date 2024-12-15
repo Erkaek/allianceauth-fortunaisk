@@ -1,0 +1,57 @@
+{% extends "allianceauth/base.html" %}
+{% load i18n %}
+{% block page_title %}
+    {% translate "Admin Dashboard" %}
+{% endblock page_title %}
+{% block content %}
+<div class="container">
+    <h2>{% translate "Admin Dashboard" %}</h2>
+    <h3>{% translate "Tickets" %}</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{% translate "Reference" %}</th>
+                <th>{% translate "Character" %}</th>
+                <th>{% translate "Amount" %}</th>
+                <th>{% translate "Paid" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.ticket_ref }}</td>
+                    <td>{{ ticket.character }}</td>
+                    <td>{{ ticket.amount }}</td>
+                    <td>
+                        {% if ticket.paid %}
+                            <span class="text-success">{% translate "Yes" %}</span>
+                        {% else %}
+                            <span class="text-danger">{% translate "No" %}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>{% translate "Winners" %}</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{% translate "Character" %}</th>
+                <th>{% translate "Ticket" %}</th>
+                <th>{% translate "Won At" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for winner in winners %}
+                <tr>
+                    <td>{{ winner.character }}</td>
+                    <td>{{ winner.ticket.ticket_ref }}</td>
+                    <td>{{ winner.won_at|date:"Y-m-d H:i" }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

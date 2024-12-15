@@ -1,0 +1,34 @@
+{% extends "allianceauth/base.html" %}
+{% load i18n %}
+{% block page_title %}
+    {% translate "My Tickets" %}
+{% endblock page_title %}
+{% block content %}
+<div class="container">
+    <h2>{% translate "My Tickets" %}</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{% translate "Reference" %}</th>
+                <th>{% translate "Amount" %}</th>
+                <th>{% translate "Paid" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.ticket_ref }}</td>
+                    <td>{{ ticket.amount }}</td>
+                    <td>
+                        {% if ticket.paid %}
+                            <span class="text-success">{% translate "Yes" %}</span>
+                        {% else %}
+                            <span class="text-danger">{% translate "No" %}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
