@@ -15,15 +15,14 @@ def register_urls():
 
 class FortunaISKMenu(MenuItemHook):
     def __init__(self):
-        # text = 'FortunaISK'
-        # url_name = 'fortunaisk:current_lottery'
-        # icon = 'fas fa-ticket' (solide, cohérent avec FA5+)
+        # Arguments positionnels: texte, url_name, icône, etc.
         super().__init__(
-            'FortunaISK',
-            'fortunaisk:current_lottery',
-            'fas fa-ticket',
+            'FortunaISK',               # Le texte affiché dans le menu
+            'fortunaisk:current_lottery', # Le nom du pattern d'URL
+            'fa fa-ticket',             # L'icône Font Awesome
             navactive=['fortunaisk:']
         )
+
 
 @hooks.register('menu_item_hook')
 def register_menu():
