@@ -1,11 +1,26 @@
-<h1>Historique des gagnants</h1>
-{% for lot in past_lotteries %}
-    <h2>{{ lot.name }}</h2>
-    {% if lot.winner %}
-        <p>Gagnant : {{ lot.winner.user.username }}</p>
-        <p>Gain : {{ lot.winner.prize_amount }} ISK</p>
-        <p>Date du tirage : {{ lot.winner.date_drawn }}</p>
-    {% else %}
-        <p>Pas de gagnant enregistré.</p>
-    {% endif %}
-{% endfor %}
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "FortunaISK Winners History" %}{% endblock %}
+
+{% block content %}
+<div class="content-section">
+    <h2>{% translate "Historique des gagnants" %}</h2>
+    {% for lot in past_lotteries %}
+        <div class="card mb-3">
+            <div class="card-header">{{ lot.name }}</div>
+            <div class="card-body">
+                {% if lot.winner %}
+                    <p><strong>{% translate "Winner" %}:</strong> {{ lot.winner.user.username }}</p>
+                    <p><strong>{% translate "Prize" %}:</strong> {{ lot.winner.prize_amount }} ISK</p>
+                    <p><strong>{% translate "Drawn Date" %}:</strong> {{ lot.winner.date_drawn }}</p>
+                {% else %}
+                    <p>{% translate "No winner recorded." %}</p>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">{% translate "No past lotteries found." %}</div>
+    {% endfor %}
+</div>
+{% endblock %}
