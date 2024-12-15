@@ -11,8 +11,9 @@ class Ticket(models.Model):
     paid = models.BooleanField(default=False)
 
     class Meta:
+        default_permissions = ('add', 'change', 'delete')  # Supprime `view` auto-généré
         permissions = [
-            ("view_ticket", "Can view tickets"),
+            ("view_ticket_custom", "Can view tickets (custom permission)"),
             ("admin", "Can manage Fortunaisk tickets"),
         ]
 
@@ -26,8 +27,9 @@ class Winner(models.Model):
     won_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
+        default_permissions = ('add', 'change', 'delete')  # Supprime `view` auto-généré
         permissions = [
-            ("view_winner", "Can view winners"),
+            ("view_winner_custom", "Can view winners (custom permission)"),
             ("admin", "Can manage Fortunaisk winners"),
         ]
 
