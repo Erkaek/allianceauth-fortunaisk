@@ -4,8 +4,9 @@ from allianceauth.services.hooks import MenuItemHook, UrlHook
 
 class FortunaiskMenu(MenuItemHook):
     def __init__(self):
+        # Suppression de l'argument "name" et remplacement par le format attendu
         super().__init__(
-            name="Fortunaisk",
+            app_name="Fortunaisk",
             icon_class="fas fa-coins fa-fw",
             url_name="fortunaisk:ticket_list",
             navactive=["fortunaisk:"]
