@@ -1,5 +1,4 @@
-from allianceauth.services.hooks import hooks, MenuItemHook, UrlHook
-from allianceauth.services.hooks.models import MenuItem
+from allianceauth.services.hooks import MenuItemHook, UrlHook
 from django.urls import reverse
 
 class FortunaISKMenuItem(MenuItemHook):
@@ -11,10 +10,13 @@ class FortunaISKMenuItem(MenuItemHook):
             perm="fortunaisk.view_fortunaisk",
         )
 
-@hooks.register('menu_item_hook')
-def register_menu_hook():
-    return FortunaISKMenuItem()
+class FortunaISKUrls(UrlHook):
+    def __init__(self):
+        super().__init__(
+            urls='fortunaisk.urls',
+            namespace='fortunaisk',
+        )
 
-@hooks.register('url_hook')
-def register_url_hook():
-    return UrlHook(urls='fortunaisk.urls', namespace='fortunaisk')
+# Enregistrer les hooks
+menu_item_hook = FortunaISKMenuItem()
+url_hook = FortunaISKUrls()
