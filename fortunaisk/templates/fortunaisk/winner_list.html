@@ -1,36 +1,35 @@
-{% extends "allianceauth/base-bs5.html" %}
-
-{% load i18n %}
+{% extends "fortunaisk/base.html" %}
 
 {% block page_title %}
     {% translate "Winners" %}
-{% endblock %}
+{% endblock page_title %}
 
-{% block content %}
-<div class="fortunaisk">
-    <div class="fortunaisk-header">
-        <h2>{% translate "Winners" %}</h2>
-    </div>
-
-    <div class="fortunaisk-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>{% translate "Character" %}</th>
-                    <th>{% translate "Ticket" %}</th>
-                    <th>{% translate "Won At" %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for winner in winners %}
-                <tr>
-                    <td>{{ winner.character }}</td>
-                    <td>{{ winner.ticket.ticket_ref }}</td>
-                    <td>{{ winner.won_at }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-{% endblock %}
+{% block details %}
+    <h2 class="mb-4">{% translate "Winners" %}</h2>
+    {% if winners %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{% translate "Character" %}</th>
+                        <th>{% translate "Ticket" %}</th>
+                        <th>{% translate "Won At" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for winner in winners %}
+                        <tr>
+                            <td>{{ winner.character }}</td>
+                            <td>{{ winner.ticket.ticket_ref }}</td>
+                            <td>{{ winner.won_at }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="aa-callout aa-callout-warning text-center">
+            {% translate "No winners yet." %}
+        </div>
+    {% endif %}
+{% endblock details %}

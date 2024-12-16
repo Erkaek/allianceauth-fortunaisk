@@ -1,46 +1,41 @@
-{% extends "allianceauth/base-bs5.html" %}
-{% load i18n %}
+{% extends "fortunaisk/base.html" %}
 
 {% block page_title %}
     {% translate "My Tickets" %}
-{% endblock %}
+{% endblock page_title %}
 
-{% block header_nav_brand %}
-    {% translate "Fortunaisk" %}
-{% endblock %}
-
-{% block header_nav_collapse_left %}
-    {% include "fortunaisk/partials/navigation/top-navigation.html" %}
-{% endblock %}
-
-{% block header_nav_collapse_right %}
-    {% include "fortunaisk/partials/navigation/actions.html" %}
-{% endblock %}
-
-{% block content %}
-<div class="fortunaisk">
-    <h2>{% translate "My Tickets" %}</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>{% translate "Reference" %}</th>
-                <th>{% translate "Amount" %}</th>
-                <th>{% translate "Paid" %}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ticket in tickets %}
-            <tr>
-                <td>{{ ticket.ticket_ref }}</td>
-                <td>{{ ticket.amount }}</td>
-                <td>{{ ticket.paid }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="3">{% translate "No tickets available" %}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endblock %}
+{% block details %}
+    <h2 class="mb-4">{% translate "My Tickets" %}</h2>
+    {% if tickets %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{% translate "Reference" %}</th>
+                        <th>{% translate "Amount" %}</th>
+                        <th>{% translate "Paid" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets %}
+                        <tr>
+                            <td>{{ ticket.ticket_ref }}</td>
+                            <td>{{ ticket.amount }}</td>
+                            <td>
+                                {% if ticket.paid %}
+                                    <span class="badge bg-success">{% translate "Yes" %}</span>
+                                {% else %}
+                                    <span class="badge bg-danger">{% translate "No" %}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="aa-callout aa-callout-warning text-center">
+            {% translate "No tickets available." %}
+        </div>
+    {% endif %}
+{% endblock details %}

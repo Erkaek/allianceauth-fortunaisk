@@ -1,44 +1,23 @@
-{% extends "allianceauth/base-bs5.html" %}
-
-{% load i18n %}
+{% extends "fortunaisk/base.html" %}
 
 {% block page_title %}
-    {% translate "Fortunaisk Administration" %}
-{% endblock %}
+    {% translate "Admin Dashboard" %}
+{% endblock page_title %}
 
-{% block header_nav_brand %}
-    {% translate "Fortunaisk" %}
-{% endblock %}
-
-{% block header_nav_collapse_left %}
-    {% include "fortunaisk/partials/navigation/top-navigation.html" %}
-{% endblock %}
-
-{% block header_nav_collapse_right %}
-    {% include "fortunaisk/partials/navigation/actions.html" %}
-{% endblock %}
-
-{% block content %}
-    <div class="fortunaisk">
-        <div class="fortunaisk-header">
-            <h2>{% translate "Administration Dashboard" %}</h2>
+{% block details %}
+    <h2 class="mb-4">{% translate "Admin Dashboard" %}</h2>
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            {% translate "Administration" %}
         </div>
-
-        <div class="fortunaisk-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>{% translate "Tickets Overview" %}</h3>
-                    <p>{% translate "Manage tickets for all users." %}</p>
-                </div>
-                <div class="col-md-6">
-                    <h3>{% translate "Winners Overview" %}</h3>
-                    <p>{% translate "View and manage winners." %}</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="fortunaisk-footer mt-3 pt-3 border-top border-light">
-            {% include "fortunaisk/partials/footer/app-translation-footer.html" %}
+        <div class="card-body">
+            <p>{% translate "Manage tickets and winners for Fortunaisk." %}</p>
+            <a href="{% url 'fortunaisk:tickets_list' %}" class="btn btn-primary">
+                {% translate "View Tickets" %}
+            </a>
+            <a href="{% url 'fortunaisk:winner_list' %}" class="btn btn-secondary">
+                {% translate "View Winners" %}
+            </a>
         </div>
     </div>
-{% endblock %}
+{% endblock details %}
