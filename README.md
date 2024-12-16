@@ -1,3 +1,7 @@
+# ⚠️ WARNING: DO NOT INSTALL ⚠️
+
+**This project is still in active development and is not functional. Do not attempt to install or use it in any environment, especially production.**
+
 # FortunaISK
 
 FortunaISK is a monthly lottery module for Alliance Auth. **Please note: this project is still in development and is not yet functional for production use.**
