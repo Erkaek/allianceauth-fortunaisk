@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from allianceauth.eveonline.models import EveCharacter
+from django.utils.timezone import now  # Import the `now` function
 
 
 class Ticket(models.Model):
@@ -22,18 +23,22 @@ class Ticket(models.Model):
     
 class Config(models.Model):
     ticket_price = models.DecimalField(
-        max_digits=10, decimal_places=2, default=10.00, verbose_name="Ticket Price"
+        max_digits=10,
+        decimal_places=0,
+        default=100000000,
+        verbose_name="Ticket Price"
     )
     next_draw_date = models.DateTimeField(
-        default=now, verbose_name="Next Draw Date"
+        default=now,  # Use `now` for the default value
+        verbose_name="Next Draw Date"
     )
 
-    class Meta:
-        verbose_name = "Fortunaisk Configuration"
-        verbose_name_plural = "Fortunaisk Configuration"
-
     def __str__(self):
-        return "Global Configuration"
+        return "Configuration"
+
+    class Meta:
+        verbose_name = "Configuration"
+        verbose_name_plural = "Configuration"
 
 
 class Winner(models.Model):
