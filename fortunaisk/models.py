@@ -19,6 +19,21 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f"{self.character} - {self.ticket_ref}"
+    
+class Config(models.Model):
+    ticket_price = models.DecimalField(
+        max_digits=10, decimal_places=2, default=10.00, verbose_name="Ticket Price"
+    )
+    next_draw_date = models.DateTimeField(
+        default=now, verbose_name="Next Draw Date"
+    )
+
+    class Meta:
+        verbose_name = "Fortunaisk Configuration"
+        verbose_name_plural = "Fortunaisk Configuration"
+
+    def __str__(self):
+        return "Global Configuration"
 
 
 class Winner(models.Model):
@@ -35,3 +50,21 @@ class Winner(models.Model):
 
     def __str__(self):
         return f"Winner: {self.character} - {self.ticket.ticket_ref}"
+
+class FortunaISKSettings(models.Model):
+    ticket_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=100.00,
+        help_text="Price of a single ticket."
+    )
+    next_drawing_date = models.DateTimeField(
+        help_text="Date and time of the next automatic drawing."
+    )
+
+    def __str__(self):
+        return "FortunaISK Settings"
+
+    class Meta:
+        verbose_name = "FortunaISK Setting"
+        verbose_name_plural = "FortunaISK Settings"
